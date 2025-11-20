@@ -1,1 +1,488 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wenn wir verschwinden – Eine Reise durch die Welt ohne Menschen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg: #0b1021;
+      --panel: #131a33;
+      --accent: #74d0ff;
+      --text: #e9edf5;
+      --muted: #9aa4c3;
+      --card: #1c2547;
+      --shadow: rgba(0, 0, 0, 0.25);
+    }
 
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at 30% 20%, #152249, #0b1021 35%),
+        radial-gradient(circle at 80% 0%, #162b52, #0b1021 30%), #0b1021;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header.hero {
+      position: relative;
+      min-height: 100vh;
+      overflow: hidden;
+      display: grid;
+      align-items: center;
+      padding: 2rem clamp(1.25rem, 3vw, 3rem);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(rgba(11, 16, 33, 0.5), rgba(11, 16, 33, 0.95)),
+        url("https://images.unsplash.com/photo-1505761671935-60b3a7427bad?auto=format&fit=crop&w=1600&q=80")
+          center/cover no-repeat;
+      filter: saturate(0.9);
+      transform: scale(1.05);
+      z-index: 0;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      backdrop-filter: blur(12px);
+      background: rgba(11, 16, 33, 0.8);
+      border-bottom: 1px solid rgba(116, 208, 255, 0.1);
+    }
+
+    .nav-inner {
+      display: flex;
+      gap: 1rem;
+      padding: 0.75rem clamp(1.25rem, 3vw, 3rem);
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+
+    .nav-inner a {
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.4rem 0.75rem;
+      border-radius: 999px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .nav-inner a:hover,
+    .nav-inner a:focus-visible {
+      color: var(--text);
+      background: rgba(116, 208, 255, 0.12);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+    }
+
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 700;
+      color: var(--accent);
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 5vw, 3.75rem);
+      margin: 0 0 1rem;
+      line-height: 1.1;
+    }
+
+    h2 {
+      font-size: clamp(1.6rem, 3vw, 2.25rem);
+      margin: 0 0 1rem;
+      line-height: 1.2;
+    }
+
+    h3 {
+      margin: 2.5rem 0 0.75rem;
+      font-size: 1.35rem;
+    }
+
+    p {
+      color: var(--muted);
+      margin: 0 0 1rem;
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent);
+      color: #041226;
+      font-weight: 700;
+      padding: 0.85rem 1.4rem;
+      border-radius: 0.9rem;
+      text-decoration: none;
+      box-shadow: 0 10px 30px rgba(116, 208, 255, 0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .cta:hover,
+    .cta:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(116, 208, 255, 0.45);
+    }
+
+    .scroll-indicator {
+      margin-top: 2rem;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      color: var(--muted);
+      gap: 0.25rem;
+      font-size: 0.9rem;
+    }
+
+    .scroll-indicator span {
+      width: 24px;
+      height: 24px;
+      border: 2px solid var(--muted);
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      animation: bounce 1.5s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(8px);
+      }
+    }
+
+    main {
+      padding: 0 0 4rem;
+    }
+
+    section {
+      padding: 4rem clamp(1.25rem, 3vw, 3rem);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid rgba(116, 208, 255, 0.15);
+      border-radius: 1.2rem;
+      padding: clamp(1.5rem, 2vw, 2rem);
+      box-shadow: 0 20px 50px var(--shadow);
+    }
+
+    .grid {
+      display: grid;
+      gap: 1.25rem;
+    }
+
+    .grid.two {
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(116, 208, 255, 0.15);
+      padding: 1rem;
+      border-radius: 1rem;
+    }
+
+    .card strong {
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 1.5rem;
+      border-left: 2px dashed rgba(116, 208, 255, 0.35);
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 1rem;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -1.7rem;
+      top: 0.35rem;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 6px rgba(116, 208, 255, 0.15);
+    }
+
+    .subtle {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .divider {
+      height: 1px;
+      background: rgba(116, 208, 255, 0.15);
+      margin: 2.5rem 0;
+    }
+
+    @media (min-width: 960px) {
+      .hero-content {
+        max-width: 820px;
+      }
+
+      .split {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 2rem;
+        align-items: start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav aria-label="Hauptnavigation">
+    <div class="nav-inner">
+      <a href="#intro">Intro</a>
+      <a href="#influence">Die Menschheit & ihr Einfluss</a>
+      <a href="#timeline">Zeitreise</a>
+      <a href="#phase-0-24">0–24 Stunden</a>
+      <a href="#phase-1w">1 Woche</a>
+      <a href="#phase-1y">1 Jahr</a>
+      <a href="#phase-10y">10 Jahre</a>
+      <a href="#phase-100y">100 Jahre</a>
+      <a href="#phase-10000y">10.000 Jahre+</a>
+      <a href="#nature">Pflanzen & Tiere</a>
+      <a href="#legacy">Was bleibt</a>
+      <a href="#fazit">Fazit</a>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="hero-content">
+      <div class="eyebrow">Zeitreise in eine Welt ohne Menschen</div>
+      <h1>Wenn wir verschwinden – Eine Reise durch die Welt ohne Menschen</h1>
+      <p>
+        Was passiert mit Städten, Technik, Pflanzen und Tieren, wenn die Menschheit
+        von heute auf morgen nicht mehr da ist? Diese Onepager-Story führt in klaren
+        Zeitachsen und mit Infografik-Ideen durch ein mögliches Szenario.
+      </p>
+      <a class="cta" href="#intro">Zeitreise starten →</a>
+      <div class="scroll-indicator">
+        <span aria-hidden="true">↓</span>
+        Weiter scrollen
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="intro">
+      <div class="panel grid two">
+        <div>
+          <h2>Was wäre, wenn ab morgen alle Menschen verschwunden wären?</h2>
+          <p>
+            Kein Weltuntergang, keine Zombies – wir sind einfach nicht mehr da. Alle Städte,
+            Maschinen, Tiere und Pflanzen bleiben zurück. Mit wissenschaftlich plausiblen
+            Annahmen blicken wir in die Zukunft und fragen: Welche Spuren hinterlassen wir,
+            und wie reagiert der Planet ohne uns?
+          </p>
+          <p>
+            Die folgenden Kapitel liefern einen kompakten Überblick mit Story, Zeitstrahl
+            und Visual-Ideen, die sich direkt in Animationen oder Infografiken übersetzen
+            lassen.
+          </p>
+        </div>
+        <div class="card">
+          <strong>Visual-Idee</strong>
+          <p class="subtle">
+            Illustration der Erde mit vielen Menschen-Piktogrammen. Beim Hover oder Scroll
+            „fliegen“ die Menschen-Icons davon, Infrastruktur bleibt sichtbar.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="influence">
+      <div class="panel">
+        <h2>Die Menschheit & ihr Einfluss</h2>
+        <h3>Wie die Menschheit gewachsen ist</h3>
+        <p>
+          Vom frühen Homo sapiens über Ackerbau und Industrialisierung bis zur digitalen
+          Gegenwart: In nur wenigen Jahrhunderten stieg die Weltbevölkerung explosiv an und
+          veränderte die Erde stärker als jede andere Spezies zuvor.
+        </p>
+        <div class="card">
+          <strong>Infografik-Idee</strong>
+          <p class="subtle">
+            Animiertes Liniendiagramm der Weltbevölkerung (Jahr 0 → 1800 → 1900 → 2000 → heute),
+            mit Pop-up-Labels wie „Industrialisierung“ oder „Grüne Revolution“.
+          </p>
+        </div>
+
+        <h3>Unser Fußabdruck auf dem Planeten</h3>
+        <div class="cards">
+          <div class="card">
+            <strong>Klima & Luft</strong>
+            <p class="subtle">CO₂-Ausstoß und Temperaturanstieg, kleiner Säulenvergleich „vor Industrialisierung vs. heute“.</p>
+          </div>
+          <div class="card">
+            <strong>Landnutzung</strong>
+            <p class="subtle">Vorher-/Nachher-Slider: Wald versus Agrarlandschaft oder Stadt mit Straßen.</p>
+          </div>
+          <div class="card">
+            <strong>Wasser & Meere</strong>
+            <p class="subtle">Icons zu Staudämmen, Verschmutzung und Überfischung, z. B. „X % Bestände übernutzt“.</p>
+          </div>
+          <div class="card">
+            <strong>Biodiversität</strong>
+            <p class="subtle">Artensterben-Visual: Tier-Icons blenden beim Scrollen aus – Hinweis auf Habitatverlust.</p>
+          </div>
+        </div>
+
+        <h3>Mitten im Leben: Wie unsere Anwesenheit Pflanzen und Tiere formt</h3>
+        <div class="grid two">
+          <p>
+            Monokulturen ersetzen Urwälder, Straßen zerschneiden Lebensräume, Haustiere und
+            Nutztiere existieren in gewaltigen Zahlen nur durch uns. Zugleich schaffen Städte
+            Nischen für Ratten, Tauben, Krähen oder Füchse – andere Arten werden verdrängt.
+          </p>
+          <div class="card">
+            <strong>Infografik-Idee</strong>
+            <p class="subtle">Geteilte Illustration: Links „mit Menschen“ (Stadt, Monokultur), rechts „ohne Menschen“ (mehr Wald, mehr Wildtiere, kaum Haustiere).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="timeline">
+      <div class="panel">
+        <h2>Zeitreise nach dem Verschwinden</h2>
+        <p>
+          Die Story folgt einer klaren Zeitleiste. Jedes Panel kann als horizontales Scroll-Element
+          oder als Abschnitt mit Animationen umgesetzt werden.
+        </p>
+        <div class="divider" aria-hidden="true"></div>
+
+        <div class="timeline">
+          <article class="timeline-item" id="phase-0-24">
+            <h3>0–24 Stunden</h3>
+            <p>Flugzeuge und Züge fahren aus, erste Stromausfälle treten auf, Haustiere irren umher. Tiere merken die Ruhe, sichtbare Veränderungen bleiben jedoch gering.</p>
+            <p class="subtle">Grafik: Nachtstadt, deren Lichter nacheinander ausgehen; animierte Icons für Zug/Flugzeug, die ausrollen und stoppen.</p>
+          </article>
+
+          <article class="timeline-item" id="phase-1w">
+            <h3>Nach einer Woche</h3>
+            <p>Kraftwerke ohne Personal bedeuten flächige Blackouts. Wasserwerke und Kläranlagen fallen aus, U-Bahnen und Tunnel laufen voll. Brände lodern länger ohne Feuerwehr.</p>
+            <p class="subtle">Mini-Stadtplan mit Icons: Blitz für Stromausfall, Tropfen für flutende Tunnel.</p>
+          </article>
+
+          <article class="timeline-item" id="phase-1y">
+            <h3>Nach einem Jahr</h3>
+            <p>Pflanzen sprengen Asphalt, Dächer begrünen. Viele Haustiere sterben oder verwildern, Nutztiere verschwinden weitgehend. Fahrzeuge rosten, Schimmel greift Gebäude an.</p>
+            <p class="subtle">Vorher-/Nachher-Slider einer Straße: Heute vs. +1 Jahr mit sichtbar wucherndem Grün.</p>
+          </article>
+
+          <article class="timeline-item" id="phase-10y">
+            <h3>Nach zehn Jahren</h3>
+            <p>Städte wirken wie überwucherte Ruinen. Wildtiere kehren zurück, CO₂-Emissionen sind stark eingebrochen, die Luftqualität verbessert sich spürbar.</p>
+            <p class="subtle">Skyline-Animation: Gebäude werden langsam grün überdeckt; Diagramm „CO₂ mit Menschen“ vs. „ohne Menschen“.</p>
+          </article>
+
+          <article class="timeline-item" id="phase-100y">
+            <h3>Nach hundert Jahren</h3>
+            <p>Hochhäuser stürzen ein, Beton zerbricht, Straßen verschwinden unter Wald und Wiesen. Ökosysteme finden neue Gleichgewichte, große Flächen sind wieder bewaldet.</p>
+            <p class="subtle">Weltkarte mit zunehmender Wiederbewaldung; Illustration eines früheren Highways als Waldweg.</p>
+          </article>
+
+          <article class="timeline-item" id="phase-10000y">
+            <h3>Nach zehntausend Jahren und mehr</h3>
+            <p>Fast alle Gebäude sind verschwunden, nur stabile Steinbauten und Spuren von Metallen, Kunststoffen oder Radioaktivität bleiben. Neue Arten entstehen, die Erde lebt weiter.</p>
+            <p class="subtle">Bodenschnitt-Grafik mit Schichten aus Plastik, Beton und Metallpartikeln; kurzer Marker-Zeitstrahl.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="nature">
+      <div class="panel">
+        <h2>Wie die Natur aufatmet</h2>
+        <div class="grid two">
+          <div>
+            <h3>Pflanzenwelt</h3>
+            <p>Wälder drängen in Städte, Monokulturen verschwinden langsam und machen Platz für vielfältige Ökosysteme.</p>
+            <p class="subtle">Diagramm-Idee: Flächenverteilung „vorher: viel Agrar, wenig Wildnis“ vs. „danach: mehr Wildnis“.</p>
+          </div>
+          <div>
+            <h3>Tierwelt</h3>
+            <p>Heim- und Nutztiere sterben teils aus oder verwildern; Wildtiere profitieren von Ruhe, Dunkelheit und durchlässigen Lebensräumen.</p>
+            <p class="subtle">Food-Web-Grafik: neues Nahrungsnetz ohne Menschen mit Beutegreifern, Beutetieren und Aasfressern.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="legacy">
+      <div class="panel grid two">
+        <div>
+          <h2>Unsere Fußspuren im tiefen Zeitmaßstab</h2>
+          <p>Plastikreste, Beton- und Stahlfragmente sowie radioaktive Isotope lagern sich in Sedimenten ab. Klimafolgen wie veränderte Gletscher oder Meeresspiegel bleiben messbar.</p>
+          <p>Diese „Anthropozän-Schicht“ wird noch in ferner Zukunft Hinweise auf uns liefern.</p>
+        </div>
+        <div class="card">
+          <strong>Visual-Idee</strong>
+          <p class="subtle">Schichtgrafik eines Gesteinsquerschnitts mit markanter Lage aus Plastik, Beton, Metall und radioaktiven Partikeln.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="fazit">
+      <div class="panel split">
+        <div>
+          <h2>Was sagt uns dieses Gedankenexperiment?</h2>
+          <p>Die Erde kommt ohne uns zurecht – die Frage ist, ob wir mit ihr klarkommen. Unser Einfluss ist massiv, aber wir können ihn steuern: weniger Ressourcenverbrauch, Schutzgebiete ausbauen, resilientere Städte schaffen.</p>
+          <p>Nutze diese Onepage-Story als Grundlage für Animationen, Vorträge oder ein interaktives Web-Erlebnis.</p>
+        </div>
+        <div>
+          <div class="card">
+            <strong>Abschlussbild</strong>
+            <p class="subtle">Ein Baum, der durch ein Auto wächst – Natur und Stadt verschmelzen. Button „Zurück zum Anfang“ scrollt nach oben.</p>
+          </div>
+          <p><a class="cta" href="#top">Zurück zum Anfang ↑</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
